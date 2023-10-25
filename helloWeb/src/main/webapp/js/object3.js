@@ -13,7 +13,7 @@ const member = {
         for(let prop in student){
             tr += '<td>' + student[prop] + '</td>';
         }
-        tr += '<td>'<button onclick="this.parentElement.parentElement remove()">삭제'</td>';
+        //tr += '<td>'<button onclick="this.parentElement.parentElement remove()">삭제'</td>';
         tr += '</tr>';
         return tr;
 
