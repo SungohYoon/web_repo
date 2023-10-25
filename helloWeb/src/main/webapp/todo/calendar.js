@@ -19,7 +19,11 @@ function Calendar() {
     body += "<tbody>";
     body += "<tr>";
     for(let i=1; i<=31; i++){
-        body += "
+        body += "<td>""<td>";
+        if(i%7 == 0){
+          "<tr>""<tr>;
+        }
+        
     }
     
 }
