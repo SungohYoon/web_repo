@@ -14,5 +14,13 @@ function Calendar() {
     head += "</thead>";
   }
 
-  function makeBody() {}
+  function makeBody() {
+    let body = "";
+    body += "<tbody>";
+    body += "<tr>";
+    for(let i=1; i<=31; i++){
+        body += "
+    }
+    
+}
 }
