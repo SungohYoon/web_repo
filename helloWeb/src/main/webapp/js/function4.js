@@ -26,6 +26,13 @@ document.getElementById('saveBtn').onclick = function (e) {
     let name = document.getElementById('name').value;
     let age = document.getElementById('age').value;
     let height = document.getElementById('height').value;
+    
+    if(!name || !age || !height){
+		arert('값을 입력하세요');
+		return;
+	}else{
+		
+	}
 
     const mem = new Member(name, age, height);
     let str = makeTr(mem); // <tr>.....</tr>
