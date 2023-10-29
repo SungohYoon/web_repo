@@ -16,42 +16,44 @@ public class MemberServiceImpl implements MemberService {
 	Connection conn;
 	PreparedStatement psmt;
 	ResultSet rs;
-	
-	@Override
-	public List<MemberVO> memberList(){
-		List<MemberVO> member = new ArrayList<>();
-	MemberVO vo;
-	String sql = "SELECT * FROM MEMBER";
-	try {
-		conn = dataSource.getConnection();
-		psmt = conn.prepareStatement(sql);
-		ResultSet rs = psmt.executeQuery();
-		System.out.printf("");
-		while(rs.next()) {
-			vo = new MemberVO();
-			vo.setMid(rs.getString("mid"));
-			vo.setPass(rs.getString("pass"));
-			vo.setName(rs.getString("name"));
-			vo.setPhone(rs.getString("phone"));
-			member.add(vo);
-		}
-	} catch(SQLException e) {
-		e.printStackTrace();
-	} finally {
+
+	private void close() {
 		try {
-			if(rs!=null)
-				rs.close();
-			if(psmt != null)
+			if (psmt != null)
 				psmt.close();
-			if(conn != null)
+			if (conn != null)
 				conn.close();
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
 	}
-	
-		
-	return member;
-}
+
+	@Override
+	public List<MemberVO> memberList() {
+		List<MemberVO> members = new ArrayList<>();
+		MemberVO vo;
+		String sql = "SELECT * FROM MEMBER";
+		try {
+			conn = dataSource.getConnection();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+//		System.out.printf("");
+			while (rs.next()) {
+				vo = new MemberVO();
+				vo.setMid(rs.getString("mid"));
+				vo.setPass(rs.getString("pass"));
+				vo.setName(rs.getString("name"));
+				vo.setPhone(rs.getString("phone"));
+				members.add(vo);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+
+		}
+
+		return members;
+	}
 }

@@ -39,11 +39,12 @@ public class MemberListServ2 extends HttpServlet {
 		List<MemberVO> list = svc.memberList();
 		System.out.println("JSON데이터 입니다..");
 		
-		response.setContentType("text/json;charset=utf-8");
+		response.setContentType("text/json; charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
 		// [{"mid":value, "pass":value, "name":value, "phone":value}, {}, {}]
-		String str = "[";
+		String str = "";
+		str += "[";
 		int cnt = 0;
 		for(MemberVO vo : list) {
 			str += "{";

@@ -39,10 +39,11 @@ public class MemberListServ extends HttpServlet {
 		List<MemberVO> list = svc.memberList();
 		System.out.println(list);
 		
-		response.setContentType("text/xml;charset=utf-8");
-		
+		response.setContentType("text/xml; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		String str = "<dataset>";
+		String str = "";
+		
+		str += "<dataset>";
 		for(MemberVO vo : list) {
 			str += "<record>";
 			str += "<mid>" + vo.getMid() + "</mid>";
