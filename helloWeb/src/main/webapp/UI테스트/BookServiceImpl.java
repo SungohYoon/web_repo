@@ -13,44 +13,47 @@ import org.yedam.service.BookVO;
 
 public class BookServiceImpl implements BookService {
 
-	DataSource dataSource = DataSource.getInstance();
-	Connection conn;
-	PreparedStatement psmt;
-	ResultSet rs;
+	private DataSource dataSource = DataSource.getInstance();
+	private Connection conn;
+	private PreparedStatement psmt;
 
 	@Override
 	public List<BookVO> bookList() {
 		List<BookVO> books = new ArrayList<>();
-		BookVO vo;
 		String sql = "SELECT * FROM BOOK";
+		conn = dataSource.getConnection();
+
 		try {
-			conn = dataSource.getConnection();
 			psmt = conn.prepareStatement(sql);
 			ResultSet rs = psmt.executeQuery();
-			while(rs.next()) {
-				vo = new BookVO();
-				vo.setBookCode(rs.getString("bookCode"));
-				vo.setBookTitle(rs.getString("bookTitle"));
-				vo.setBookAuthor(rs.getString("bookAuthor"));
-				vo.setBookPress(rs.getString("bookPress"));
-				vo.setBookPrice(rs.getString("bookPrice"));
+			while (rs.next()) {
+				BookVO vo = new BookVO();
+				vo.setBookCode(rs.getString("book_code"));
+				vo.setBookTitle(rs.getString("book_title"));
+				vo.setBookAuthor(rs.getString("book_author"));
+				vo.setBookPress(rs.getString("book_press"));
+				vo.setBookPrice(rs.getInt("book_price"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (psmt != null)
-					psmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close();
 		}
 		return books;
-	
 	}
+	
+	private void close() {
+		try {
+			if(psmt!=null) {
+				psmt.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			
+	}
+			
 
-}

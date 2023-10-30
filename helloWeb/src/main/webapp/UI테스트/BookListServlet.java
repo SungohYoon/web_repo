@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.yedam.service.BookService;
 import org.yedam.service.BookVO;
-import org.yedam.serviceImpl.BookServiceImpl;
+import org.yedam.service.MemberVO;
+import org.yedam.service.serviceImpl.BookServiceImpl;
 
 /**
- * Servlet implementation class BookListServlet
+ * Servlet implementation class BookListServ
  */
 @WebServlet("/BookListServlet")
 public class BookListServlet extends HttpServlet {
@@ -35,24 +36,28 @@ public class BookListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		BookService svc = new BookServiceImpl();
 		List<BookVO> list = svc.bookList();
-		System.out.println(list);
-		
-		response.setContentType("text/xml;charset=UTF-8");
+		response.setContentType("text/json;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String str = "<dataset>";
-				for (BookVO vo : list) {
-					str += "<record>";
-					str += "<bookCode>" + vo.getBookCode() + "</bookCode>";
-					str += "<bookTitle>" + vo.getBookTitle() + "</bookTitle>";
-					str += "<bookAuthor>" + vo.getBookAuthor() + "</bookAuthor>";
-					str += "<bookPress>" + vo.getBookPress() + "</bookPress>";
-					str += "<bookPrice>" + vo.getBookPrice() + "</bookPrice>";
-				}
-				str += "</dataset>";
-				out.print(str);
+		int cnt = 0;
+		String str = "[";
+		for (BookVO vo : list) {
+			str += "{";
+			str += "\"bookcode\":\"" + vo.getBookCode() + "\",";
+			str += "\"booktitle\":\"" + vo.getBookTitle() + "\",";
+			str += "\"bookauthor\":\"" + vo.getBookAuthor() + "\",";
+			str += "\"bookpress\":\"" + vo.getBookPress() + "\",";
+			str += "\"bookprice\":\"" + vo.getBookPrice() + "\"";
+			str += "}";
+			if (++cnt != list.size()) {
+				str += ",";
+			}
+
+		}
+		
+		str += "]";
+		out.print(str);
 	}
 
 	/**

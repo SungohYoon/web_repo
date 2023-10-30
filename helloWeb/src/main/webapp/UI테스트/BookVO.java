@@ -12,7 +12,7 @@ public class BookVO {
 	private String bookTitle;
 	private String bookAuthor;
 	private String bookPress;
-	private String bookPrice;
+	private int bookPrice;
 
 	
 }
