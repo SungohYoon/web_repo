@@ -50,7 +50,7 @@ function loadJson() {
 	})
 	// 페이지 작성
 	result = table.makeTable(titles, dataAry);
-	document.getElementById('show').innerHTML = result;
+	document.getElementById("show").innerHTML = result;
 }
 
 function loadXML() {
@@ -72,7 +72,7 @@ function loadXML() {
 
 		dataAry.push(obj);
 	}
-	let result = table.makeTable(titles.dataAry);
+	let result = table.makeTable(titles, dataAry);
 	console.log(result);
 	let tr = '<tr><td>' + newMember.mid + '</td>'
 		+ '<td>' + newMember.pass + '</td>'
