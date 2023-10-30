@@ -2,7 +2,8 @@ package org.yedam;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,17 +15,20 @@ import org.yedam.service.MemberService;
 import org.yedam.service.MemberVO;
 import org.yedam.serviceImpl.MemberServiceImpl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
- * Servlet implementation class MemberListServ
+ * Servlet implementation class AddMemberService
  */
-@WebServlet("/MemberListServ")
-public class MemberListServ extends HttpServlet {
+@WebServlet("/AddMemberServ.html")
+public class AddMemberService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public MemberListServ() {
+	public AddMemberService() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,23 +39,34 @@ public class MemberListServ extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		MemberService svc = new MemberServiceImpl();
-		List<MemberVO> list = svc.memberList();
-		System.out.println(list);
+		// TODO Auto-generated method stub
+		// ?mid=M009&pass=9999&name=Kim&phone=010-1234-5678
+		// (mid, pass, name, phone)
+		String mid = request.getParameter("mid");
+		String pass = request.getParameter("pass");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
 
-		response.setContentType("text/xml;charset=UTF-8");
+		// 맴버 인스턴스 선언.
+		MemberVO vo = new MemberVO(mid, pass, name, phone);
+
+		MemberService svc = new MemberServiceImpl();
 		PrintWriter out = response.getWriter();
-		String str = "<dataset>";
-		for (MemberVO vo : list) {
-			str += "<record>";
-			str += "<mid>" + vo.getMid() + "</mid>";
-			str += "<pass>" + vo.getPass() + "</pass>";
-			str += "<name>" + vo.getName() + "</name>";
-			str += "<phone>" + vo.getPhone() + "</phone>";
-			str += "</record>";
-		}
-		str += "</dataset>";
-		out.print(str);
+		Gson gson = new GsonBuilder().create();
+
+		// Map.
+		Map<String, Object> map = new HashMap<>();
+//		map.put("retCode", "OK");
+//		map.put("vo", vo);
+		if (svc.addMember(vo)) {
+			map.put("retCode", "OK");
+			map.put("vo", vo);
+		} else {
+			map.put("retCode", "NG");
+			map.put("vo", vo.getMid());
+		};
+		String json = gson.toJson(map);
+		out.print(json);
 	}
 
 	/**

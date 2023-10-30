@@ -4,11 +4,11 @@
 import { table } from "./ajaxModule.js";
 
 // Syschronous(동기방식)
-let friends = [];
+/*let friends = [];
 friends.push('홍길동');
 friends.push('강길동');
 friends.push('최길동');
-console.log(friends);
+console.log(friends);*/
 
 // Asynchronous(비동기방식)
 //let friendsA
@@ -33,22 +33,26 @@ let newMember = {
 let xhtp = new XMLHttpRequest();
 
 // XML 실행
-xhtp.open('get', "../MemberListServ");
+xhtp.open('get', '../MemberListServ2');
 xhtp.send();
-xhtp.onload = loadXML;
+xhtp.onload = loadJson;
 
-// JSON 실행
-//xhtp.oen('get', '../MemberListServ2');
-//xhtp.send();
-//xhtp.onload = loadJSON;
+function loadJson() {
+	console.log(xhtp.responseText);
+	let result = JSON.parse(xhtp.responseText);
+	console.log(result);
+	let titles = ["회원번호", "비밀번호", "이름", "연락처"];
+	let dataAry = [];
+	result.forEach(member => {
+		dataAry.push({
+			mid: member.mid, pass: member.pass, name: member.name, phone: member.phone
+		})
+	})
+	// 페이지 작성
+	result = table.makeTable(titles, dataAry);
+	document.getElementById('show').innerHTML = result;
+}
 
-
-//function loadJson() {
-//console.log(xhtp.responseText);
-//let result = JSON.parse(xhtp.responseText);
-//console.log(result);
-//}
-//xhtp.onload = function() {
 function loadXML() {
 	console.log(xhtp.responseXML);
 	let doc = xhtp.responseXML;
@@ -68,32 +72,14 @@ function loadXML() {
 
 		dataAry.push(obj);
 	}
-
 	let result = table.makeTable(titles.dataAry);
-
 	console.log(result);
+	let tr = '<tr><td>' + newMember.mid + '</td>'
+		+ '<td>' + newMember.pass + '</td>'
+		+ '<td>' + newMember.name + '</td>'
+		+ '<td>' + newMember.phone + '</td></tr> ';
 
 	document.getElementById('show').innerHTML = result
 
-	let tr = '<tr><td>' + newMember.mid + '</td><td>' + newMember.pass + '</td><td>' + newMember.name + '</td><td>' + newMember.phone + '</td></tr>';
-
 	document.getElementById('list').innerHTML += tr;
 }
-
-// 2) newMember 추가. ajax 실행이 되고 나서 추가하는 기능이 실행.
-
-//function loadJSON() {
-//    console.log(xhtp.responseText);
-
-//    let result = JSON.parse(xhtp.responseText);
-
-//    console.log(result);
-
-//    let titles = ["회원번호", "비밀번호", "이름", "연락처"];
-
-//    let tb = table.makeTable(titles, result);
-
-//    document.getElementById('show').innerHTML = tb;
-//}
-
-//document.getElementById('list').innerHTML += tr;

@@ -16,7 +16,7 @@ public class DataSource {
 	//오라클 드라이버 이름
 	private static String driver = "oracle.jdbc.OracleDriver";
 	//DB 접속정보, jdbc:oracle:thin:@[서버IP]:[포트]:[SID]
-	private static String url = "jdbc:oracle:thin:@192.168.56.1:1521:xe";
+	private static String url = "jdbc:oracle:thin:@192.168.0.49:1521:xe";
 	// UserName 정보 입력
 	private static String user = "hr";
 	// UserPassword 정보 입력

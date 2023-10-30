@@ -20,40 +20,39 @@ import org.yedam.serviceImpl.MemberServiceImpl;
 @WebServlet("/MemberListServ2")
 public class MemberListServ2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberListServ2() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public MemberListServ2() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		MemberService svc = new MemberServiceImpl();
 		List<MemberVO> list = svc.memberList();
 		System.out.println("JSON데이터 입니다..");
-		
-		response.setContentType("text/json; charset=UTF-8");
-		
+
+		response.setContentType("text/json;charset=UTF-8");
+
 		PrintWriter out = response.getWriter();
 		// [{"mid":value, "pass":value, "name":value, "phone":value}, {}, {}]
-		String str = "";
-		str += "[";
+		String str = "[";
 		int cnt = 0;
-		for(MemberVO vo : list) {
+		for (MemberVO vo : list) {
 			str += "{";
 			str += "\"mid\":\"" + vo.getMid() + "\",";
 			str += "\"pass\":\"" + vo.getPass() + "\",";
 			str += "\"name\":\"" + vo.getName() + "\",";
 			str += "\"phone\":\"" + vo.getPhone() + "\"";
 			str += "}";
-			if(++cnt != list.size()) {
+			if (++cnt != list.size()) {
 				str += ",";
 			}
 		}
@@ -62,9 +61,11 @@ public class MemberListServ2 extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -9,24 +9,32 @@ const table = {
 		headTag += "</tr></thead>";
 		return headTag;
 	},
-	makeBody(dataAry = []) {
+	
+	makeBody(dataAry = [{mid, pass, name, phone}]) {
 		let bodyTag = "<tbody id='list'>";
 		dataAry.forEach(item => {
-			bodyTag += "<tr>";
-			for (let prop in item) {
-				bodyTag += "<td>" + item[prop] + "</td>";
-			}
-			bodyTag += "</tr>";
-		})
+			bodyTag += this.makeTr(item);
+		})	
 		bodyTag += "</tbody>";
 		return bodyTag;
 	},
+	
 	makeTable(titleAry, dataAry) {
 		let tableTag = "<table border='1'>";
 		tableTag += this.makeHead(titleAry) + this.makeBody(dataAry);
 		tableTag += "</table>";
 		return tableTag;
+	},
+	
+	makeTr(member = [{mid, pass, name, phone}]){
+		let trTag = "<tr onclick='showInfo(event, this)'>";
+		for(let prop in member){
+			trTag += "<td>" + member[prop] + "</td>;"
+		}
+		trTag += "</tr>";
+		return trTag;
 	}
+	
 
 }
 
