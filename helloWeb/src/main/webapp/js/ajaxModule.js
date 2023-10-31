@@ -29,7 +29,7 @@ const table = {
 	makeTr(member = [{mid, pass, name, phone}]){
 		let trTag = "<tr onclick='showInfo(event, this)'>";
 		for(let prop in member){
-			trTag += "<td>" + member[prop] + "</td>;"
+			trTag += "<td>" + member[prop] + "</td>";
 		}
 		trTag += "</tr>";
 		return trTag;
