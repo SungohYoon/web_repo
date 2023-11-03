@@ -1,4 +1,4 @@
-package co.yedam.board;
+package co.yedam.board.web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,18 +8,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class firstServlet
+ * Servlet implementation class SecondServlet
  */
-@WebServlet("/FirstServlet.do")
-public class FirstServlet extends HttpServlet {
+@WebServlet("/SecondServlet.do")
+public class SecondServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FirstServlet() {
+	public SecondServlet() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html;charset=utf-8");
+		resp.getWriter().print("나는 전설이다");
 	}
 
 	/**
@@ -28,12 +34,8 @@ public class FirstServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=utf-8");
-		String name = "홍길동";
-		int age = 20;
-		for (int i = 0; i < 5; i++) {
-			response.getWriter().print("<p>" + i + "번째 이름은 " + name + ", 나이는 " + age + "입니다.</p>");
-		}
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
