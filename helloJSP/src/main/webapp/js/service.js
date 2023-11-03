@@ -60,7 +60,7 @@ export default {
 	// 등록.
 	async addStudent(optObj, successCallback, errorCallback) {
 
-		let req = await fetch('../addStudent.do', optObj);
+		let req = await fetch('../addStudent.do?', optObj);
 		let json = await req.json();
 
 		try {
@@ -96,7 +96,7 @@ export default {
 	// 삭제.
 	async removeStudent(id, successCallback, errorCallback) {
 
-		let req = await fetch('../delStudent.do?sid=' + id);
+		let req = await fetch('../delStudent.do?sid' + id);
 		let json = await req.json();
 
 		try {
