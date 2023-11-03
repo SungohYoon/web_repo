@@ -32,14 +32,13 @@ public class ModStudentServlet extends HttpServlet {
 		resp.setContentType("text/json;charset=UTF-8");
 
 		StudentVO vo = new StudentVO();
-		
+
 		String sid = req.getParameter("sid");
 		String sname = req.getParameter("sname");
 		String pass = req.getParameter("pass");
 		String birth = req.getParameter("birth");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 
 		vo.setStudentId(sid);
 		vo.setStudentName(sname);
@@ -70,7 +69,7 @@ public class ModStudentServlet extends HttpServlet {
 		}
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
+
 		resp.getWriter().print(gson.toJson(map));
 
 	}
