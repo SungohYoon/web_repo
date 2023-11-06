@@ -1,8 +1,0 @@
-깃허브 토큰
-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
-
-
-	깃허브(index.html): o -> b
-학원: b     	         --           	집(index.html): o -> a     
-
-https://nulab.com/learn/software-development/git-tutorial/ (깃가이드)	
