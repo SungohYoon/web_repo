@@ -37,4 +37,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.delete(boardNo) == 1;
 	}
 
+	@Override
+	public boolean loginCheck(String id, String pw) {
+		return dao.getUser(id, pw);
+	}
+
 }
