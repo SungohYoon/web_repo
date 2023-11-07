@@ -95,6 +95,7 @@ BoardVO vo = (BoardVO) request.getAttribute("bno");
 		// 댓글목록
 		let bno = "<%=vo.getBoardNo()%>";
 		let writer = "<%=logId%>";
+		
 		bno = document.querySelector('.boardNo').innerHTML;
 		fetch('replyList.do?bno=' + bno)
 		.then(resolve => resolve.json())
@@ -145,6 +146,21 @@ BoardVO vo = (BoardVO) request.getAttribute("bno");
 			temp.querySelector('b').innerHTML = reply.reply;
 			temp.querySelector('span:nth-of-type(2)').innerHTML = reply.replyer;
 			temp.querySelector('span:nth-of-type(3)').innerHTML = reply.replyDate;
+			
+			temp.querySelector('button').addEventListener('click', function(e){
+				console.log("버튼");
+				fetch('deleteReply.do?replyNo=' + reply.replyNo)
+				.then(resolve => resolve.json())	
+				.then(result => {
+					console.log(result.retCode);
+					if(result.retCode == "OK"){
+						temp.remove();
+					}else{
+						alert("삭제실패");
+					}
+				})
+				.catch(err=> console.log(err));
+			})
 			return temp;
 		}
 	</script>
