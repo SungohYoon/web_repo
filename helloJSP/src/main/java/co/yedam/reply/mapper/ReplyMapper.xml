@@ -3,7 +3,18 @@
 <mapper namespace="co.yedam.reply.mapper.ReplyMapper">
 	<select id="replyList"
 		resultType="co.yedam.reply.service.ReplyVO">
-		SELECT * FROM REPLY WHERE BOARD_NO = #{boardNo}
+		<![CDATA[
+		select * 
+		from(
+			select /*+ INDEX(r reply_pk) */ rownum rn, r.*
+			from reply r 
+			where r.board_no = #{boardNo}
+			)a
+		where a.rn > (#{page} - 1) * 5
+		and a.rn <= (#{page}) * 5
+		]]>
+
+
 	</select>
 
 	<select id="selectReply"
@@ -13,12 +24,12 @@
 
 	<insert id="insertReply"
 		parameterType="co.yedam.reply.service.ReplyVO">
-		<selectKey  keyProperty="replyNo" resultType="int"
+		<selectKey keyProperty="replyNo" resultType="int"
 			order="BEFORE">
-		select seq_reply.nextval from dual
+			select seq_reply.nextval from dual
 		</selectKey>
-			INSERT INTO REPLY(REPLY_NO, BOARD_NO, REPLY, REPLYER, REPLY_DATE)
-			VALUES(#{replyNo}, #{boardNo}, #{reply}, #{replyer}, #{replyDate})
+		INSERT INTO REPLY(REPLY_NO, BOARD_NO, REPLY, REPLYER, REPLY_DATE)
+		VALUES(#{replyNo}, #{boardNo}, #{reply}, #{replyer}, #{replyDate})
 	</insert>
 
 	<update id="updateReply"
@@ -31,6 +42,17 @@
 		DELETE FROM REPLY WHERE
 		REPLY_NO = #{replyNo}
 	</delete>
+
+	<select id="getTotalCnt" resultType="int">
+		SELECT COUNT(*) FROM REPLY
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+
+	<select id="getReplyCountByWriter" resultType="map">
+		select replyer, count(*) cnt
+		from reply
+		group by replyer
+	</select>
 </mapper> 
 	
 	

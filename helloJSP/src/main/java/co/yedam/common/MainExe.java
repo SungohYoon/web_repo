@@ -1,11 +1,11 @@
 package co.yedam.common;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.reply.mapper.ReplyMapper;
-import co.yedam.reply.service.ReplyVO;
 
 
 public class MainExe {
@@ -34,6 +34,11 @@ public class MainExe {
 		
 		
 //		mapper.deleteReply(6);
+		
+//		mapper.replyList(2, 3).forEach(rep -> System.out.println(rep));
+		
+		List <Map<String, Object>> map = mapper.getReplyCountByWriter();
+		System.out.println(map);
 
 	}
 }

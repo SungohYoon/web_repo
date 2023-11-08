@@ -15,7 +15,7 @@ public class BoardFormControl implements Command {
 
 		HttpSession session = req.getSession();
 
-		if (session.getAttribute("loginId") == null) {
+		if (session.getAttribute("logId") == null) {
 
 			try {
 

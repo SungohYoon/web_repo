@@ -4,27 +4,28 @@
 <%@include file="../layout/menu.jsp"%>
 <%@include file="../layout/header.jsp"%>
 
+
 <%
 BoardVO vo = (BoardVO) request.getAttribute("vo");
 %>
 <h3>게시글 삭제화면</h3>
 <form action="removeBoard.do" method="post">
-	<input type="hidden" name="bno" value="<%=vo.getBoardNo()%>">
+	<input type="hidden" name="bno" value="${vo.boardNo }">
 	<table class="table">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="title" value="<%=vo.getTitle()%>"></td>
+			<td><input type="text" name="title" value="${vo.title }"></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="writer" value="<%=vo.getWriter()%>"></td>
+			<td><input type="text" name="writer" value="${vo.writer }"></td>
 		</tr>
 		<tr>
-			<td colspan="2"><textarea cols="40" rows="5" name="content"><%=vo.getContent()%></textarea></td>
+			<td colspan="2"><textarea cols="40" rows="5" name="content">${vo.content }%></textarea></td>
 		</tr>
 		<tr>
 			<th>파일명</th>
-			<td><img src="images/<%=vo.getImage()%>" width="150px"></td>
+			<td><img src="images/${vo.image }" width="150px"></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center"><input type="submit"
